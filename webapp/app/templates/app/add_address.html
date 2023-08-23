@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block add_address %}
+    <div class="container mt-4 mb-3" style="width: 550px; border: #1b1e21">
+      <h2 class="mb-4 text-center">THÊM ĐỊA CHỈ</h2>
+      <form method="POST" action="" >
+          {% csrf_token %}
+    {#      {{ form.as_p }}#}
+          <div class="form-group">
+              <label for="categoryName">Tên người nhận:</label>
+              {{ form.name_user }}
+          </div>
+          <div class="form-group">
+              <label for="categoryName">Số điện thoại:</label>
+              {{ form.mobile }}
+          </div>
+          <div class="form-group">
+              <label for="categoryName">Tỉnh/ Thành Phố:</label>
+              {{ form.city }}
+          </div>
+          <div class="form-group">
+              <label for="categoryName">Quận/Huyện:</label>
+              {{ form.district }}
+          </div>
+        <div class="form-group">
+          <label for="categoryDescription">Xã/ Phường</label>
+          {{ form.commune }}
+        </div>
+          <div class="form-group">
+          <label for="categoryDescription">Địa chỉ cụ thể:</label>
+          {{ form.adress }}
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="primary-btn text-center border-0">Thêm địa chỉ</button>
+        </div>
+      </form>
+
+    </div>
+{% endblock add_address %}
+
+

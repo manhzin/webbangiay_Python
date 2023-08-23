@@ -1,0 +1,58 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content_checkout %}
+    <div class="container align-items-center">
+        <div class="row" style="width:100%">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+            <h3 class="text-center">THANH TOÁN</h3>
+                <div class="box-element" id="form-wrapper">
+                    <div id="shipping-info">
+                        <p id="selected-address"></p>
+                    </div>
+
+                    <table class="table table-borderless">
+                        <thead>
+                          <tr>
+                            <th>Sản phẩm</th>
+                            <th>Đơn Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for item in items %}
+                          <tr>
+                            <td>{{item.product.name}}</td>
+                            <td>${{item.product.price}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>${{ item.total | floatformat:2 }}</td>
+
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                      <div class="">
+                        <h5> <b> Tổng cộng:</b>  ${{order.get_cart_total | floatformat:2}}</h5>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const selectedAddressElement = document.getElementById("selected-address");
+            const selectedAddressJSON = sessionStorage.getItem("selectedAddress");
+            if (selectedAddressJSON) {
+                const selectedAddress = JSON.parse(selectedAddressJSON);
+                console.log(selectedAddress);
+                // Thực hiện xử lý dữ liệu địa chỉ ở đây
+                selectedAddressElement.textContent = `Địa chỉ: ${selectedAddress.name_user} - ${selectedAddress.moblie} - ${selectedAddress.address}
+                -  ${selectedAddress.commune} - ${selectedAddress.district} - ${selectedAddress.city} `;
+            }
+        });
+
+    </script>
+
+{% endblock content_checkout %}

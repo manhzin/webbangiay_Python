@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xóa địa chỉ</title>
+</head>
+<body>
+      <h2>Delete Category</h2>
+      <p>Are you sure you want to delete the address "{{ category.name }}"?</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+        <a href="{% url 'manageProduct' %}">Cancel</a>
+      </form>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block information %}
+    <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <!-- Thông tin người dùng -->
+        <div class="card">
+          <img src="path_to_user_image.jpg" class="card-img-top" alt="User Image">
+          <div class="card-body">
+              <h5 class="card-title">Tên user: {{ user.username }}</h5>
+              <p class="card-text">Tên người dùng: {{ user.first_name }} </p>
+              <p class="card-text">Email người dùng: {{ user.email }} </p>
+              <p class="card-text">Fist name:{{ user.first_name }} </p>
+              <p class="card-text">Last name: {{ user.last_name }} </p>
+            <!-- Các liên kết xử lý khác cho người dùng -->
+             <a href="#" class="btn btn-primary">Chỉnh sửa thông tin</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <!-- Hiển thị danh sách bài đăng hoặc thông tin người dùng khác -->
+        <div class="card">
+        <div class="d-flex justify-content-md-between p-2">
+            <h4>Địa chỉ của tôi</h4>
+            <div class="text-right mb-3">
+               <a class="btn btn-primary btn-sm" href="{% url 'addAddress' %}">Thêm địa chỉ</a>
+            </div>
+        </div>
+          <div class="card-body">
+              {% for foo in address_infor %}
+                  <div class="d-flex justify-content-md-between">
+                    <div class="col-md-6">
+                        <strong>Địa chỉ</strong>
+                        <address>
+                            {{ foo.name_user }} |  {{ foo.mobile}} <br>
+                            {{ foo.commune }} - {{ foo.district }} - {{ foo.city }}<br>
+                            {{ foo.adress }}<br>
+                        </address>
+                    </div>
+                    <div>
+                        <a href="{% url 'editAddress' %}?id={{ foo.id }}" class="btn btn-primary btn-sm">Sửa</a>
+                        <a href="{% url 'deleteAddress' %}?id={{ foo.id }}" class="btn btn-danger btn-sm">Xóa</a>
+                    </div>
+                  </div>
+
+                {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock information %}

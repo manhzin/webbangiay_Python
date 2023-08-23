@@ -1,0 +1,104 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content_checkout %}
+    <div class="container">
+        <div class="row" style="width:100%">
+            <div class="col-md-5">
+
+                <div class="box-element" id="form-wrapper">
+                    <form id="form" method="POST" action="">
+                        {% csrf_token %}
+                        {% if form_show == "show" %}
+                            <div id="shipping-info" class="form-show">
+                            <h4>CHỌN ĐỊA CHỈ NGƯỜI DÙNG</h4>
+                                {% for address in allAddress %}
+                                    <div class="form-check p-2">
+                                        <input class="form-check-input" type="radio" name="address" id="address{{ forloop.counter }}" value="{{ forloop.counter }}"
+                                               data-id="{{  address.id }}" data-name="{{  address.name_user }}" data-moblie="{{ address.mobile }}" data-address="{{ address.adress }}"
+                                               data-commune="{{ address.commune }}" data-district="{{ address.district }}" data-city="{{ address.city }}">
+                                        <label class="form-check-label" for="address{{ forloop.counter }}">
+                                            Địa chỉ: {{ address.name_user }} - {{ address.mobile }} - {{ address.adress }}
+                                             - {{ address.commune }} - {{ address.district }} - {{ address.city }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {% endif %}
+                        <button id="submit-button" type="submit" class="btn primary-btn btn-sm"><a style="color: white" href="{% url 'address' %}?address={{ address.id }}">Submit</a></button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="box-element">
+{#                    <a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>#}
+                    <h3>Order Summary</h3>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Ảnh</th>
+                            <th>Sản phẩm</th>
+                            <th>Đơn Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for item in items %}
+                          <tr>
+                            <td> <img style="height: 80px; width: auto;" src="{{item.product.ImageURL}}"/> </td>
+                            <td>{{item.product.name}}</td>
+                            <td>${{item.product.price}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>${{ item.total }}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                      <div class="text-right">
+                        <h4>Tổng cộng: ${{order.get_cart_total | floatformat:2}}</h4>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("form");
+    const selectedAddressIdInput = document.getElementById("selected-address-id");
+    const addressRadios = form.querySelectorAll('input[type="radio"][name="address"]');
+    const submitButton = document.getElementById("submit-button");
+
+    submitButton.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn gửi form mặc định
+
+        let selectedAddress = null;
+        let id_address = null;
+
+        addressRadios.forEach(function(radio) {
+            if (radio.checked) {
+                selectedAddress = {
+                    id: radio.getAttribute("data-id"),
+                    name_user: radio.getAttribute("data-name"),
+                    moblie: radio.getAttribute("data-moblie"),
+                    address: radio.getAttribute("data-address"),
+                    commune: radio.getAttribute("data-commune"),
+                    district: radio.getAttribute("data-district"),
+                    city: radio.getAttribute("data-city"),
+                };
+                id_address = selectedAddress.id;
+            }
+        });
+
+        if (selectedAddress) {
+            sessionStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
+            // Chuyển hướng đến trang khác với ID của địa chỉ đẩy lên đường dẫn
+            window.location.href = "http://127.0.0.1:8000/address/?id=" + id_address;
+        }
+    });
+});
+
+
+</script>
+
+{% endblock content_checkout %}

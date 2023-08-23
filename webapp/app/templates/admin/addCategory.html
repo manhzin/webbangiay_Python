@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thêm danh mục sản phẩm</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4" style="width: 550px">
+  <h2 class="mb-4">Thêm danh mục sản phẩm</h2>
+  <form method="POST" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+    <div class="form-group">
+      <label for="categoryName">Danh Mục:</label>
+      {{ form.sub_category }}
+    </div>
+      <div class="form-group">
+      <label for="categoryDescription">Thuộc Danh Mục Con: </label>
+      {{ form.is_sub }}
+    </div>
+    <div class="form-group">
+      <label for="categoryDescription">Tên Danh Mục</label>
+      {{ form.name }}
+    </div>
+      <div class="form-group">
+      <label for="categoryDescription">Đường Dẫn</label>
+      {{ form.slug }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.image.id_for_label }}">Chọn ảnh: </label>
+        <div class="input-group">
+            <div class="custom-file">
+                {{ form.image }}
+                <label class="custom-file-label" for="{{ form.image.id_for_label }}">Choose file</label>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Thêm danh mục</button>
+
+  </form>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

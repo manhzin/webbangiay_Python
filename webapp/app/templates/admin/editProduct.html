@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thêm sản phẩm</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4" style="width: 550px; border: #1b1e21">
+  <h2 class="mb-4 text-center">THÊM SẢN PHẨM</h2>
+  <form method="POST" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+{#      {{ form.as_p }}#}
+      <div class="form-group">
+          <label for="categoryName">Tên Sản Phẩm:</label>
+          {{ form.name }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.category.id_for_label }}">Thuộc danh mục: </label><br>
+        {% for choice in form.category %}
+            <div class="form-check form-check-inline">
+                {{ choice }}
+                <label class="form-check-label d-flex" for="{{ choice.id_for_label }}"></label>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+      <label for="categoryDescription">Giá</label>
+      {{ form.price }}
+    </div>
+    <div class="form-group">
+          <label for="categoryDescription">Giá sale</label>
+          {{ form.price_sale }}
+      </div>
+      <div class="form-group">
+          <label for="categoryDescription">Đơn vị</label>
+          {{ form.unit }}
+      </div>
+      <div class="form-group">
+         <label for="categoryDescription">Số lượng</label>
+         {{ form.count }}
+      </div>
+      <div class="form-group">
+      <label for="categoryDescription">Mô tả</label>
+      {{ form.describe }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.image.id_for_label }}">Chọn ảnh: </label>
+        <div class="input-group">
+            <div class="custom-file">
+                {{ form.image }}
+                <label class="custom-file-label" for="{{ form.image.id_for_label }}">Choose file</label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary text-center">Sửa sản phẩm</button>
+    </div>
+  </form>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
