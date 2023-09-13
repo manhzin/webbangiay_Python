@@ -8,7 +8,7 @@ def loginPage(request):
     fixed_height = "20px"
     user_not_login = "show"
     user_login = "none"
-    if request.user.is_authenticated: # neu da xac thuc
+    if request.user.is_authenticated: 
         return redirect('home')
     if request.method == 'POST':
         userName = request.POST.get('username')
@@ -18,7 +18,7 @@ def loginPage(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.info(request, 'UserName or PassWord not ddungs')
+            messages.info(request, 'Tên tài khoản hoặc mật khẩu không chính xác')
     context = {'user_login': user_login,
                'user_not_login': user_not_login,
                'slide_hidden': slide_hidden,
@@ -28,4 +28,3 @@ def loginPage(request):
 def logoutPage(request):
     logout(request)
     return redirect('login')
-
