@@ -73,7 +73,8 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="{% url 'logout' %}" style="display: {{ user_not_login }}">Đăng nhập</a>
                                         <a class="dropdown-item" href="{% url 'information' %}">Thông tin</a>
-                                        <a style="display: {{ show_manage }}" class="dropdown-item" href="{% url 'manage' %}">Trang quản trị</a>
+                                        <a class="dropdown-item" href="{% url 'myOrder' %}">Đơn hàng của tôi</a>
+                                        <a style="display: {{ show_manage }}" class="dropdown-item" href="{% url 'manageCategory' %}">Trang quản trị</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Đăng xuất</a>
 
                                         <!-- Add more options as needed -->
@@ -84,11 +85,11 @@
                           <li>
                             <a href="{%url 'cart'%}" class="site-cart">
                                 <img style="width: 20px; height: 20px;" src="{% static 'app/images/icon/shopping-cart.png' %}" alt="">
-                              <span class="count">{{order.get_cart_item}}</span>
+                              <span class="count">{{count}}</span>
                             </a>
                           </li>
                           <li>
-                            <span class="count">Item: {{order.get_cart_total | floatformat:2}}</span>
+                            <span class="count">Item: {{total_all | floatformat:2}}</span>
                           </li>
 
                         </ul>
@@ -132,7 +133,8 @@
           {% block blog_winshop %}{% endblock blog_winshop %}
           {% block add_address %}{% endblock add_address %}
           {% block edit_address %}{% endblock edit_address %}
-        {% block about-content%}{% endblock about-content%}
+          {% block about-content%}{% endblock about-content%}
+          {% block my_order %}{% endblock my_order %}
           <!--footer-->
     <footer class="site-footer border-top">
       <div class="container">
@@ -226,6 +228,8 @@
     </body>
     <!-- Js Plugins -->
     <script src="{%static 'app/js/addProduct.js' %} "></script>
+    <script src="{%static 'app/js/increaseProduct.js' %} "></script>
+    <script src="{%static 'app/js/reduceProduct.js' %} "></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="{%static 'app/js/bootstrap.min.js' %} "></script>

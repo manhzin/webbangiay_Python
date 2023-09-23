@@ -1,0 +1,17 @@
+{% extends 'admin/manage.html' %}
+{% load static %}
+{% block blog-slide %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Xóa đơn hàng</h2>
+                <p class="card-text">Bạn chắc chắn muốn xóa đơn hàng này không?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                    <a href="{% url 'manageOrder' %}" class="btn btn-secondary">Trở lại</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock blog-slide %}

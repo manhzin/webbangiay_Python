@@ -56,49 +56,47 @@
                         </tbody>
                       </table>
                       <div class="text-right">
-                        <h4>Tổng cộng: ${{order.get_cart_total | floatformat:2}}</h4>
+                        <h4>Tổng cộng: ${{total_all | floatformat:2}}</h4>
                       </div>
                 </div>
             </div>
         </div>
     </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("form");
-    const selectedAddressIdInput = document.getElementById("selected-address-id");
-    const addressRadios = form.querySelectorAll('input[type="radio"][name="address"]');
-    const submitButton = document.getElementById("submit-button");
-
-    submitButton.addEventListener("click", function(event) {
-        event.preventDefault();  // Ngăn chặn gửi form mặc định
-
-        let selectedAddress = null;
-        let id_address = null;
-
-        addressRadios.forEach(function(radio) {
-            if (radio.checked) {
-                selectedAddress = {
-                    id: radio.getAttribute("data-id"),
-                    name_user: radio.getAttribute("data-name"),
-                    moblie: radio.getAttribute("data-moblie"),
-                    address: radio.getAttribute("data-address"),
-                    commune: radio.getAttribute("data-commune"),
-                    district: radio.getAttribute("data-district"),
-                    city: radio.getAttribute("data-city"),
-                };
-                id_address = selectedAddress.id;
-            }
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("form");
+            const selectedAddressIdInput = document.getElementById("selected-address-id");
+            const addressRadios = form.querySelectorAll('input[type="radio"][name="address"]');
+            const submitButton = document.getElementById("submit-button");
+        
+            submitButton.addEventListener("click", function(event) {
+                event.preventDefault();  // Ngăn chặn gửi form mặc định
+        
+                let selectedAddress = null;
+                let id_address = null;
+        
+                addressRadios.forEach(function(radio) {
+                    if (radio.checked) {
+                        selectedAddress = {
+                            id: radio.getAttribute("data-id"),
+                            name_user: radio.getAttribute("data-name"),
+                            moblie: radio.getAttribute("data-moblie"),
+                            address: radio.getAttribute("data-address"),
+                            commune: radio.getAttribute("data-commune"),
+                            district: radio.getAttribute("data-district"),
+                            city: radio.getAttribute("data-city"),
+                        };
+                        id_address = selectedAddress.id;
+                    }
+                });
+        
+                if (selectedAddress) {
+                    sessionStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
+                    // Chuyển hướng đến trang khác với ID của địa chỉ đẩy lên đường dẫn
+                    window.location.href = "http://127.0.0.1:8000/address/?id=" + id_address;
+                }
+            });
         });
-
-        if (selectedAddress) {
-            sessionStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
-            // Chuyển hướng đến trang khác với ID của địa chỉ đẩy lên đường dẫn
-            window.location.href = "http://127.0.0.1:8000/address/?id=" + id_address;
-        }
-    });
-});
-
-
-</script>
-
+    </script>
+    
 {% endblock content_checkout %}

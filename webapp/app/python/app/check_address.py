@@ -15,49 +15,64 @@ def Continue1(request):
         print('not admin')
         show_manage = 'none'
     # lấy các sản phẩm
+    total_all = 0
+    count = 0
     if request.user.is_authenticated:
         customer = request.user
-
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
+        items = Cart.objects.filter(user=customer)
         user_not_login = "none"
         user_login = "show"
         for item in items:
             item.total = item.product.price * item.quantity
+            total_all += item.product.price * item.quantity
+            count += item.quantity
     else:
         order = None
         items = []
         user_not_login = "show"
         user_login = "none"
 
-    # lấy địa chỉ
-    form = AddressForm()
-    allAddress = Adress.objects.all()
-    if request.user.is_authenticated:
-        user = request.user
-        shipping = Adress.objects.filter(customer=user)
+# Xử lý chính
+    id = request.GET.get('id', '')
+    print("lấy id của address: " + id)
+    address = Adress.objects.filter(id=id)
+    address_data = address.values()
+    try:
+        single_address = address.get()
+        # Lấy các trường cụ thể, ví dụ lấy tên người dùng và địa chỉ
+        city = single_address.city
+        address_sate = single_address.adress
+        name = single_address.name_user
+        mobile = single_address.mobile
+        district = single_address.district
+        commune = single_address.commune
+        print(single_address)
+        order = Order(customer=customer, address_order=single_address, complete=False)
+        order.save()
 
-    if request.method == 'POST':
-        form = AddressForm(request.POST)
-        if form.is_valid():
-            address = form.cleaned_data['address']
-            city = form.cleaned_data['city']
-            state = form.cleaned_data['state']
-            mobile = form.cleaned_data['mobile']
-            shipping = Adress(customer=request.user, address=address, city=city, state=state, mobile=mobile)
-            shipping.save()
-            messages.success(request, 'Address saved successfully!')
-        else:
-            messages.error(request, 'Failed to save address.')
-    else:
-        form = AddressForm()
+        for item in items:
+            items_order = OrderItem(product=item.product, order=order, quantity=item.quantity,size=item.size, total= item.product.price * item.quantity)
+            items_order.save()
 
-    context = {'shipping': shipping,
-               'items': items,
-               'order': order,
+        products = OrderItem.objects.filter(order=order)
+        for item in products:
+            item.total = item.product.price * item.quantity
+
+        items.delete()
+    except Adress.DoesNotExist:
+        # Xử lý trường hợp không tìm thấy bản ghi
+        pass
+
+    print(name, city, address_sate, mobile, district, commune)
+    for item in items:
+        print(item)
+
+    context = {'items': items,
+               'products': products,
+               'total_all': total_all,
+               'count': count,
                'user_login': user_login,
                'user_not_login': user_not_login,
-               'allAddress': allAddress,
                'messages': messages,
                'slide_hidden': slide_hidden,
                'fixed_height': fixed_height,

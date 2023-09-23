@@ -21,7 +21,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          {% for item in items %}
+                          {% for item in products %}
                           <tr>
                             <td>{{item.product.name}}</td>
                             <td>${{item.product.price}}</td>
@@ -33,7 +33,7 @@
                         </tbody>
                       </table>
                       <div class="">
-                        <h5> <b> Tổng cộng:</b>  ${{order.get_cart_total | floatformat:2}}</h5>
+                        <h5> <b> Tổng cộng:</b>  ${{total_all | floatformat:2}}</h5>
                       </div>
                 </div>
             </div>
@@ -41,18 +41,17 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const selectedAddressElement = document.getElementById("selected-address");
-            const selectedAddressJSON = sessionStorage.getItem("selectedAddress");
-            if (selectedAddressJSON) {
-                const selectedAddress = JSON.parse(selectedAddressJSON);
-                console.log(selectedAddress);
-                // Thực hiện xử lý dữ liệu địa chỉ ở đây
-                selectedAddressElement.textContent = `Địa chỉ: ${selectedAddress.name_user} - ${selectedAddress.moblie} - ${selectedAddress.address}
-                -  ${selectedAddress.commune} - ${selectedAddress.district} - ${selectedAddress.city} `;
-            }
-        });
-
+      document.addEventListener("DOMContentLoaded", function() {
+        const selectedAddressElement = document.getElementById("selected-address");
+        const selectedAddressJSON = sessionStorage.getItem("selectedAddress");
+        if (selectedAddressJSON) {
+            const selectedAddress = JSON.parse(selectedAddressJSON);
+            console.log(selectedAddress);
+            // Thực hiện xử lý dữ liệu địa chỉ ở đây
+            selectedAddressElement.textContent = `Địa chỉ: ${selectedAddress.name_user} - ${selectedAddress.moblie} - ${selectedAddress.address}
+            -  ${selectedAddress.commune} - ${selectedAddress.district} - ${selectedAddress.city} `;
+        }
+      });
     </script>
 
 {% endblock content_checkout %}
