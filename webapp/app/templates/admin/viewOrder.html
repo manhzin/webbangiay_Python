@@ -1,0 +1,56 @@
+{% extends 'admin/manage.html' %}
+{% load static %}
+
+{% block view-order %}
+    <div class="container align-items-center">
+        <div class="row" style="width:100%">
+
+            <div class="col-md-1"></div>
+            <div class="col-md-10 pt-4 mb-3">
+            <h4 class="text-center">HÓA ĐƠN</h4>
+                <div class="box-element pt-2" id="form-wrapper">
+                    <div id="shipping-info">
+                        <h5>Tên khách hàng: {{ order.customer.username }}</h5>
+
+                        <p>Địa chỉ nhận hàng:
+                            <span>{{ order.address_order.name_user }}</span> ,
+                            <span>{{ order.address_order.mobile }}</span>,
+                            <span>{{ order.address_order.adress }}</span>,
+                            <span>{{ order.address_order.commune }}</span>,
+                            <span>{{ order.address_order.district }}</span>,
+                            <span>{{ order.address_order.city }}</span>
+                        </p>
+                    </div>
+                    {% for item in items %}
+                    <div style="border: black 1px" class="d-flex mt-4 justify-content-md-between">
+                        <div class="d-flex">
+                            <div>
+                                <img src="{{ item.product.ImageURL }}" style="width: 100px; height: auto;" alt="">
+                            </div>
+
+                            <div class="ml-2">
+                                <ul style="list-style: none; font-size: 14px;">
+                                    <li class=""> <b>{{item.product.name}}</b></li>
+                                    <li  class="">{{item.product.price}}</li>
+                                    <li  class="">x{{item.quantity}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            ${{ item.total | floatformat:2 }}
+
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="d-flex flex-column float-right">
+                        <div class="float-right text-lg-right">
+                            <h5><b>Thành tiền:</b> ${{ total|floatformat:2 }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+{% endblock view-order %}

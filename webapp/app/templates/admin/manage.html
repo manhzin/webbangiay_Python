@@ -104,7 +104,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="{% url 'manageOrder' %}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>ĐƠN HÀNG</span></a>
             </li>
@@ -324,6 +324,7 @@
                 {% block blog-slide %}{% endblock blog-slide %}
                 {% block blog-product %}{% endblock blog-product %}
                 {% block blog-category %}{% endblock blog-category %}
+                {% block view-order %}{% endblock view-order %}
 
             </div>
             <!-- End of Main Content -->

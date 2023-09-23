@@ -1,0 +1,54 @@
+{% extends 'admin/manage.html' %}
+{% load static %}
+{% block blog-slide %}
+    <div class="container mt-4">
+           <h2 class="text-center">QUẢN LÝ ĐƠN HÀNG</h2>
+
+
+
+           <div class="container">
+            <div class="row mb-5">
+              <form class="col-md-12" method="post">
+                <div class="site-blocks-table">
+                  <table class="table text-center">
+                    <thead>
+                      <tr>
+                        <th class="product-price">ID</th>
+                        <th class="product-thumbnail">Khách hàng</th>
+                        <th class="product-name">Sản Phẩm</th>
+                        <th class="product-quantity">Tổng tiền</th>
+                        <th class="product-total">Trạng thái</th>
+                        <th class="product-total">Thao tác</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                      <tr>
+                        <td class="product-price">{{order.id}}</td>
+                        <td class="product-name">
+                            {{ order.customer.username }}
+                        </td>
+                        <td class="product-thumbnail">
+                            <ul>
+                                {% for item in order.orderitem_set.all %}
+                                    <li>{{ item.product.name}} x {{ item.quantity }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td >
+                        <td class="product-name"><p>{{ order.get_cart_total }}</p></td>
+                        <td class="product-name"><p>Đang xử lý</p></td>
+                          <td>
+                            <a href="{% url 'viewOrder' %}?id={{ order.id }}" class="btn btn-primary btn-sm">Xem</a>
+                            <a href="" class="btn btn-primary btn-sm">Sửa</a>
+                            <a href="{% url 'deleteOrder' %}?id={{ order.id }}" class="btn btn-danger btn-sm">Xóa</a>
+                          </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </form>
+            </div>
+          </div>   
+    </div>
+{% endblock blog-slide %}

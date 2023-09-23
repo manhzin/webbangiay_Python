@@ -12,31 +12,23 @@
             <h2 class="text-black">{{products.name}}</h2>
            <p>{{products.describe}}</p>
             <p><strong class="text-primary h4">{{products.price | floatformat:2}}</strong></p>
-            <div class="mb-1 d-flex">
-              <label for="option-sm" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-36" name="shop-sizes"></span> <span class="d-inline-block text-black">36</span>
-              </label>
-              <label for="option-md" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-37" name="shop-sizes"></span> <span class="d-inline-block text-black">37</span>
-              </label>
-              <label for="option-lg" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-38" name="shop-sizes"></span> <span class="d-inline-block text-black">38</span>
-              </label>
-              <label for="option-xl" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-39" name="shop-sizes"></span> <span class="d-inline-block text-black"> 39</span>
-              </label>
-                <label for="option-xl" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-40" name="shop-sizes"></span> <span class="d-inline-block text-black"> 40</span>
-              </label>
-                <label for="option-xl" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-41" name="shop-sizes"></span> <span class="d-inline-block text-black"> 41</span>
-              </label>
-                <label for="option-xl" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-42" name="shop-sizes"></span> <span class="d-inline-block text-black"> 42</span>
-              </label>
-                <label for="option-xl" class="d-flex mr-3 mb-3">
-                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-43" name="shop-sizes"></span> <span class="d-inline-block text-black"> 43</span>
-              </label>
+            <div class="container">
+              <h2>Size</h2>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="optionsRadios" id="size39" value="39"> 39
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="optionsRadios" id="size40" value="40"> 40
+                  </label>
+              </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="optionsRadios" id="size41" value="41"> 41
+                    </label>
+                </div>
             </div>
             <div class="mb-5">
               <div class="input-group mb-3" style="max-width: 120px;">
@@ -50,7 +42,7 @@
             </div>
 
             </div>
-              <button style="border: none" data-product={{products.id}} data-action="add" class="buy-now btn btn-sm btn-primary add-btn update-btn ">ADD TO CARD</button>
+              <button style="border: none" data-product={{products.id}} data-action="addProduct" class="buy-now btn btn-sm btn-primary add-btn update-btn ">Thêm vào giỏ hàng</button>
 
           </div>
         </div>
